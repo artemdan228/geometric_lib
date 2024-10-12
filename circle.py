@@ -1,5 +1,6 @@
 import math
 
+
 def area(r):
     """
     Вычисляет площадь круга по заданному радиусу.
@@ -24,3 +25,4 @@ def perimeter(r):
     float: Периметр круга.
     """
     return 2 * math.pi * r
+
