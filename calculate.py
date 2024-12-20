@@ -1,15 +1,24 @@
 import circle
 import square
+import triangle
 
-figs = ['circle', 'square']
+figs = ['circle', 'square', 'triangle']
 funcs = ['perimeter', 'area']
-sizes = {}
+sizes = {
+    'circle-area': 1,
+    'circle-perimeter': 1,
+    'square-area': 1,
+    'square-perimeter': 1,
+    'triangle-area': 3,
+    'triangle-perimeter': 3
+}
 
-# Маппинг для доступа к функциям через модули
 modules = {
     'circle': circle,
-    'square': square
+    'square': square,
+    'triangle': triangle
 }
+
 
 def calc(fig, func, size):
     if fig not in figs:
@@ -18,11 +27,11 @@ def calc(fig, func, size):
         raise ValueError(f"Invalid function: {func}")
 
     try:
-        # Используем gettattr для вызова функции из соответствующего модуля
         result = getattr(modules[fig], func)(*size)
         return result
     except Exception as e:
         raise ValueError(f"Error calculating {func} for {fig}: {e}")
+
 
 if __name__ == "__main__":
     func = ''
@@ -38,12 +47,15 @@ if __name__ == "__main__":
     while len(size) != sizes.get(f"{func}-{fig}", 1):
         try:
             size = list(
-                map(int,
+                map(
+                    int,
                     input(
-                        "Input figure sizes separated by space (1 for circle and square)\n"
+                        f"Input figure sizes separated by space "
+                        f"({sizes.get(f'{func}-{fig}', 1)} for {fig})\n"
                     ).split(' ')
-                    )
+                )
             )
+
         except ValueError:
             print("Invalid input. Please enter numeric values.")
 

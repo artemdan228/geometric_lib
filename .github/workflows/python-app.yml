@@ -19,7 +19,6 @@ jobs:
       - name: Check out code
         uses: actions/checkout@v2
 
-      # Шаг 1:
       - name: Output user details
         run: |
           echo "ФИО: Даниленко Артём Борисович"          
