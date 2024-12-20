@@ -1,7 +1,15 @@
+import circle
+import square
+
 figs = ['circle', 'square']
 funcs = ['perimeter', 'area']
 sizes = {}
 
+# Маппинг для доступа к функциям через модули
+modules = {
+    'circle': circle,
+    'square': square
+}
 
 def calc(fig, func, size):
     if fig not in figs:
@@ -10,11 +18,11 @@ def calc(fig, func, size):
         raise ValueError(f"Invalid function: {func}")
 
     try:
-        result = eval(f'{fig}.{func}(*{size})')
+        # Используем gettattr для вызова функции из соответствующего модуля
+        result = getattr(modules[fig], func)(*size)
         return result
     except Exception as e:
         raise ValueError(f"Error calculating {func} for {fig}: {e}")
-
 
 if __name__ == "__main__":
     func = ''
